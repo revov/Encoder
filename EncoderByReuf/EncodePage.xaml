@@ -1,0 +1,73 @@
+﻿<UserControl x:Class="EncoderByReuf.EncodePage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="600">
+    <Grid Style="{StaticResource ContentRoot}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" MinWidth="200"/>
+            <ColumnDefinition Width="6"/>
+            <ColumnDefinition Width="*" MinWidth="200"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Margin="{StaticResource SplitLeft}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Margin="5">Text:</TextBlock>
+            <TextBox Grid.Row="1" Name="inputBox" Margin="5" TextWrapping="Wrap" AcceptsReturn="True" MinLines="5" ScrollViewer.VerticalScrollBarVisibility="Auto" IsUndoEnabled="False"></TextBox>
+            <TextBlock Grid.Row="2" Margin="5">Result:</TextBlock>
+            <TextBox Grid.Row="3" Name="resultBox" Margin="5" TextWrapping="Wrap" AcceptsReturn="True" MinLines="5" ScrollViewer.VerticalScrollBarVisibility="Auto" IsUndoEnabled="False" IsReadOnly="True"></TextBox>
+        </Grid>
+            
+        <GridSplitter Grid.Column="1" />
+
+        <Grid Grid.Column="2 " Margin="{StaticResource SplitRight}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Button Grid.Row="0" Name="encodeButton" Click="encodeButton_Click" Margin="5">Encode</Button>
+            <Button Grid.Row="1" Name="decodeButton" Click="decodeButton_Click" Margin="5">Decode</Button>
+            <Button Grid.Row="2" Name="copyFromResultButton" Click="copyFromResultButton_Click" Margin="5">Copy from result</Button>
+            <Expander Grid.Row="3" Header="Calculate Hash">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <ComboBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Name="hashComboBox" Margin="5" SelectedIndex="3">
+                        <ComboBoxItem>MD5</ComboBoxItem>
+                        <ComboBoxItem>SHA1</ComboBoxItem>
+                        <ComboBoxItem>SHA256</ComboBoxItem>
+                        <ComboBoxItem>SHA512</ComboBoxItem>
+                    </ComboBox>
+
+                    <RadioButton Grid.Row="1" Grid.Column="0" Margin="5" GroupName="HashEncoding" Name="hexRadioButton" IsChecked="True">Hash in hex</RadioButton>
+                    <RadioButton Grid.Row="1" Grid.Column="1" Margin="5" GroupName="HashEncoding" Name="base64RadioButton">Hash in Base64</RadioButton>
+
+                    <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="3">Hash Length: <Run Text="{Binding ElementName=hashBox, Path=Text.Length, Mode=OneWay}"></Run></TextBlock>
+                    <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Name="hashBox" Margin="5" TextWrapping="Wrap" IsReadOnly="True"></TextBox>
+                </Grid>
+            </Expander>
+
+        </Grid>
+            
+    </Grid>
+</UserControl>
